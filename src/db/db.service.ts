@@ -16,6 +16,7 @@ export class DbService {
 
   getDataBetween(table: string, hoursFrom: number, hoursTo: number): string {
     let ret = '';
+    let found = false;
     // TODO use average
     this.connection.query(
       `SELECT \
@@ -30,11 +31,15 @@ export class DbService {
         minute \
       `,
       function (err, results, fields) {
-        console.log(results); // results contains rows returned by server
-        ret = 'test';
-        console.log(err);
+        ret = JSON.stringify(results);
+        console.log(ret); // results contains rows returned by server
+        if (err) {
+          console.log(err);
+        }
+        found = true;
       },
     );
+    while (!found) {}
     return ret;
   }
 }
