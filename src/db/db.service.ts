@@ -14,9 +14,7 @@ export class DbService {
     });
   }
 
-  getDataBetween(table: string, hoursFrom: number, hoursTo: number): string {
-    let ret = '';
-    let found = false;
+  getDataBetween(table: string, hoursFrom: number, hoursTo: number): any {
     // TODO use average
     this.connection.query(
       `SELECT \
@@ -30,16 +28,14 @@ export class DbService {
       group by \
         minute \
       `,
-      function (err, results, fields) {
-        ret = JSON.stringify(results);
-        console.log(ret); // results contains rows returned by server
+      function(err, results, fields) {
+        // results contains rows returned by server
         if (err) {
           console.log(err);
+        } else {
+          return JSON.stringify(results);
         }
-        found = true;
       },
     );
-    while (!found) {}
-    return ret;
   }
 }
