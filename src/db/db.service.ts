@@ -1,4 +1,5 @@
 import { Get, Injectable } from '@nestjs/common';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const mysql = require('mysql2');
 
 @Injectable()
@@ -14,9 +15,9 @@ export class DbService {
     });
   }
 
-  getDataBetween(table: string, hoursFrom: number, hoursTo: number): any {
+  getDataBetween(table: string, hoursFrom: number, hoursTo: number): string {
     // TODO use average
-    this.connection.query(
+    return this.connection.query(
       `SELECT \
         UNIX_TIMESTAMP(time) DIV 300 as minute, \
         temp \
@@ -28,7 +29,7 @@ export class DbService {
       group by \
         minute \
       `,
-      function(err, results, fields) {
+      function (err, results, fields) {
         // results contains rows returned by server
         if (err) {
           console.log(err);
