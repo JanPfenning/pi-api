@@ -16,8 +16,19 @@ export class DbService {
 
   getDataBetween(table: string, hoursFrom: number, hoursTo: number): string {
     let ret = '';
+    // TODO use average
     this.connection.query(
-      `SELECT * FROM ${table} WHERE time > (CURRENT_TIMESTAMP() - 60*60*${hoursFrom}) and 'time' < (CURRENT_TIMESTAMP() - 60*60*${hoursTo})`,
+      `SELECT \
+        UNIX_TIMESTAMP(time) DIV 300 as minute, \
+        temp \
+      FROM \
+         ${table} \
+      WHERE \
+        time > (CURRENT_TIMESTAMP() - 60 * 60 * ${hoursFrom}) \
+        and time < (CURRENT_TIMESTAMP() - 60 * 60 * ${hoursTo}) \
+      group by \
+        minute \
+      `,
       function (err, results, fields) {
         console.log(results); // results contains rows returned by server
         ret = 'test';
