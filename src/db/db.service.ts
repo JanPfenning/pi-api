@@ -21,6 +21,7 @@ export class DbService {
       function (err, results, fields) {
         console.log(results); // results contains rows returned by server
         ret = 'test';
+        console.log(err);
       },
     );
     return ret;
