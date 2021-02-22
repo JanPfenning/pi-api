@@ -17,7 +17,7 @@ export class DbService {
   getDataBetween(table: string, hoursFrom: number, hoursTo: number): string {
     let ret = '';
     this.connection.query(
-      `SELECT * FROM '${table}' WHERE 'time' > (CURRENT_TIMESTAMP() - 60*60+${hoursFrom}) and 'time' < (CURRENT_TIMESTAMP() - 60*60*${hoursTo})`,
+      `SELECT * FROM ${table} WHERE time > (CURRENT_TIMESTAMP() - 60*60*${hoursFrom}) and 'time' < (CURRENT_TIMESTAMP() - 60*60*${hoursTo})`,
       function (err, results, fields) {
         console.log(results); // results contains rows returned by server
         ret = 'test';
