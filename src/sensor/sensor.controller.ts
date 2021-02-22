@@ -9,8 +9,10 @@ export class SensorController {
     this.dbService = dbService;
   }
 
-  @Get(':sensor/:from/:to')
+  // TODO check if mqtt listeing script is writing data into the db
+
+  @Get(':table/:from/:to')
   dataFromTo(@Param() params): string {
-    return this.dbService.getDataBetween(params.sensor, params.from, params.to);
+    return this.dbService.getDataBetween(params.table, params.from, params.to);
   }
 }
