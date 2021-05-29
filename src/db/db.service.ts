@@ -25,8 +25,8 @@ export class DbService {
       FROM \
          ${table} \
       WHERE \
-        time > (CURRENT_TIMESTAMP() - 3600 * ${hoursFrom}) \
-        and time < (CURRENT_TIMESTAMP() - 3600 * ${hoursTo}) \
+        UNIX_TIMESTAMP(time) > (UNIX_TIMESTAMP(CURRENT_TIMESTAMP()) - 3600 * ${hoursFrom}) \
+        and UNIX_TIMESTAMP(time) < (UNIX_TIMESTAMP(CURRENT_TIMESTAMP()) - 3600 * ${hoursTo}) \
       group by \
         minute \
       `,
