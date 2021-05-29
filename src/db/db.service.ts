@@ -18,7 +18,7 @@ export class DbService {
     // TODO use average
     return this.connection.promise().query(
       `SELECT \
-        time, UNIX_TIMESTAMP(time) DIV 300 as minute, \
+        time, UNIX_TIMESTAMP(time) DIV 60 as minute, \
         temp \
       FROM \
          ${table} \
