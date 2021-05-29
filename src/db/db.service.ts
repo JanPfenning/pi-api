@@ -36,7 +36,7 @@ export class DbService {
       })
       .catch((err) => {
         console.log(err);
-        return '';
+        return JSON.stringify('{}');
       });
   }
 }
