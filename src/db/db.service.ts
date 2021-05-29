@@ -19,7 +19,7 @@ export class DbService {
     return this.connection.promise().query(
       `SELECT \
         time, UNIX_TIMESTAMP(time) DIV 60 as minute, \
-        temp \
+        Round(avg(temp),2) \
       FROM \
          ${table} \
       WHERE \
